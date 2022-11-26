@@ -1,0 +1,27 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - /manhattan
+variables:
+- name: group
+  value: Variables
+stages:
+- stage: __default
+  jobs:
+  - job: Job
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.8.x'
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: "echo 'Starting bash task'\npython --version\necho 'step1:Installing schemachange' \npip install schemachange\necho 'Step 2: Running schemachange'\nschemachange -f manhattan -a fd77989.central-india.azure -u JASHUVA -r ACCOUNTADMIN -w COMPUTE -d new -c new.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table\n"
+      env:
+        SNOWFLAKE_PASSWORD: Jashuva9169@
+
