@@ -1,0 +1,11 @@
+table "public"."roles" {
+  columns = (
+    column "id" {
+      type = character varying(12)
+    }
+    column "name" {
+      type = character varying(23)
+    }
+  )
+}
+
